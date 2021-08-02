@@ -1,11 +1,12 @@
 package com.example.katyascalculator;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -176,7 +177,20 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("calculator", calculator);
+    }
 
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        calculator = savedInstanceState.getParcelable("calculator");
+        textField = findViewById(R.id.textField);
+        textField.setText(String.valueOf(calculator.result));
+    }
 
 
 }
