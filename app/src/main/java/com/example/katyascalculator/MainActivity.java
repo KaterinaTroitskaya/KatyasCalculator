@@ -5,28 +5,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
+    private Calculator calculator;
+    static String sign = "0";
+    private TextView textField;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        calculator = new Calculator();
+        initView();
     }
 
-    @Override
-    public void onClick(View v) {
-
+    private void initView(){
+        textField = findViewById(R.id.textField);
+        initButtonsClickListener();
     }
 
     private void initButtonsClickListener() {
         Button button1 = findViewById(R.id.button_1);
-        Button button2 = findViewById(R.id.button_2;
+        Button button2 = findViewById(R.id.button_2);
         Button button3 = findViewById(R.id.button_3);
         Button button4 = findViewById(R.id.button_4);
         Button button5 = findViewById(R.id.button_5);
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         button9.setOnClickListener(numberButtonsClickListener);
         button0.setOnClickListener(numberButtonsClickListener);
         button_clear.setOnClickListener(buttonClearClickListener);
-        button_dot.setOnClickListener(buttonDotClickListener);
+        button_dot.setOnClickListener(numberButtonsClickListener);
         button_plus.setOnClickListener(operationPlusButtonsClickListener);
         button_min.setOnClickListener(operationMinusButtonsClickListener);
         button_div.setOnClickListener(operationDivButtonsClickListener);
@@ -64,48 +67,111 @@ public class MainActivity extends AppCompatActivity {
     public View.OnClickListener numberButtonsClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Button b = (Button)v;
+            String buttonText = b.getText().toString();
+
+            textField.append(buttonText);
 
         }
     };
     public View.OnClickListener buttonClearClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            textField.setText("0.0");
+            calculator.first_number = "";
+            calculator.second_number = "";
+            calculator.result = 0;
 
         }
     };
-    public View.OnClickListener buttonDotClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
 
-        }
-    };
     public View.OnClickListener operationPlusButtonsClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (calculator.first_number.equals("")) {
+                calculator.first_number = textField.getText().toString().trim();
+            } else {
+                calculator.second_number = textField.getText().toString().trim();
+                calculator.first_number = String.valueOf(calculator.result);
+            }
+            sign = "+";
+            textField.setText("");
 
         }
     };
     public View.OnClickListener operationMinusButtonsClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (calculator.first_number.equals("")) {
+                calculator.first_number = textField.getText().toString().trim();
+            } else {
+                calculator.second_number = textField.getText().toString().trim();
+                calculator.first_number = String.valueOf(calculator.result);
+            }
+            sign = "-";
+            textField.setText("");
 
         }
     };
     public View.OnClickListener operationDivButtonsClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (calculator.first_number.equals("")) {
+                calculator.first_number = textField.getText().toString().trim();
+            } else {
+                calculator.second_number = textField.getText().toString().trim();
+                calculator.first_number = String.valueOf(calculator.result);
+            }
+            sign = "/";
+            textField.setText("");
 
         }
     };
     public View.OnClickListener operationMultiButtonsClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (calculator.first_number.equals("")) {
+                calculator.first_number = textField.getText().toString().trim();
+            } else {
+                calculator.second_number = textField.getText().toString().trim();
+                calculator.first_number = String.valueOf(calculator.result);
+            }
+            sign = "*";
+            textField.setText("");
 
         }
     };
     public View.OnClickListener equalButtonsClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            String string = textField.getText().toString().trim();
+            if (string.length() == 0) return;
+            calculator.first_number = textField.getText().toString().trim();
+            if (calculator.first_number.equals("")) return;
+
+            switch (sign) {
+                case "+":
+                    calculator.Sum();
+                    break;
+
+                case "-":
+                    calculator.Min();
+                    break;
+
+                case "/":
+                    calculator.Div();
+
+                    break;
+
+                case "*":
+                    calculator.Mult();
+                    break;
+
+                default:
+                    calculator.result = 0;
+            }
+
+            textField.setText((int) calculator.result);
 
         }
     };
