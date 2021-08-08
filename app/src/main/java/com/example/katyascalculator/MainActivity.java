@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        calculator.result = Double.parseDouble(textField.getText().toString());
         outState.putParcelable("calculator", calculator);
     }
 
