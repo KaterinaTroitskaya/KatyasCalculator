@@ -3,16 +3,18 @@ package com.example.katyascalculator;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.button.MaterialButton;
 
 
 public class MainActivity extends AppCompatActivity {
     private Calculator calculator;
     static String sign = "0";
-    private TextView textField;
+    private EditText textField;
 
 
     @Override
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     public View.OnClickListener numberButtonsClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Button b = (Button)v;
+            MaterialButton b = (MaterialButton) v;
             String buttonText = b.getText().toString();
 
             textField.append(buttonText);
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     public View.OnClickListener buttonClearClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            textField.setText("0.0");
+            textField.setText("");
             calculator.first_number = "";
             calculator.second_number = "";
             calculator.result = 0;
