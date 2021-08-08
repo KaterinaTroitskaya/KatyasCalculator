@@ -2,5 +2,10 @@
     <!-- Base application theme. -->
     <style name="Theme.KatyasCalculator" parent="Theme.MaterialComponents.Bridge">
         <item name="colorOnPrimary">@color/white</item>
+        <item name="android:textSize">@dimen/txt_size_dark</item>
+        <item name="cornerRadius">@dimen/radiusBtn</item>
+        <item name="android:layout_margin">2dp</item>
     </style>
+
+
 </resources>
