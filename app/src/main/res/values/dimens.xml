@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textView_textSize">40sp</dimen>
+    <dimen name="radiusBtn">10dp</dimen>
+    <dimen name="txt_size">30sp</dimen>
+    <dimen name="txt_size_dark">30sp</dimen>
+</resources>
