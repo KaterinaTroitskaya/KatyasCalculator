@@ -3,18 +3,16 @@ package com.example.katyascalculator;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.button.MaterialButton;
 
 
 public class MainActivity extends AppCompatActivity {
     private Calculator calculator;
     static String sign = "0";
-    private EditText textField;
+    private TextView textField;
 
 
     @Override
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     public View.OnClickListener numberButtonsClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            MaterialButton b = (MaterialButton) v;
+            Button b = (Button)v;
             String buttonText = b.getText().toString();
 
             textField.append(buttonText);
@@ -80,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     public View.OnClickListener buttonClearClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            textField.setText("");
+            textField.setText("0.0");
             calculator.first_number = "";
             calculator.second_number = "";
             calculator.result = 0;
@@ -94,10 +92,12 @@ public class MainActivity extends AppCompatActivity {
             if (calculator.first_number.equals("")) {
                 calculator.first_number = textField.getText().toString().trim();
             } else {
-                return;
+                calculator.second_number = textField.getText().toString().trim();
+                calculator.first_number = String.valueOf(calculator.result);
             }
             sign = "+";
             textField.setText("");
+
         }
     };
     public View.OnClickListener operationMinusButtonsClickListener = new View.OnClickListener() {
@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
             if (calculator.first_number.equals("")) {
                 calculator.first_number = textField.getText().toString().trim();
             } else {
-                return;
+                calculator.second_number = textField.getText().toString().trim();
+                calculator.first_number = String.valueOf(calculator.result);
             }
             sign = "-";
             textField.setText("");
@@ -119,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
             if (calculator.first_number.equals("")) {
                 calculator.first_number = textField.getText().toString().trim();
             } else {
-                return;
+                calculator.second_number = textField.getText().toString().trim();
+                calculator.first_number = String.valueOf(calculator.result);
             }
             sign = "/";
             textField.setText("");
@@ -132,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
             if (calculator.first_number.equals("")) {
                 calculator.first_number = textField.getText().toString().trim();
             } else {
-                return;
+                calculator.second_number = textField.getText().toString().trim();
+                calculator.first_number = String.valueOf(calculator.result);
             }
             sign = "*";
             textField.setText("");
@@ -142,9 +145,9 @@ public class MainActivity extends AppCompatActivity {
     public View.OnClickListener equalButtonsClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String second_number = textField.getText().toString().trim();
-            if (second_number.length() == 0) return;
-            calculator.second_number = textField.getText().toString().trim();
+            String string = textField.getText().toString().trim();
+            if (string.length() == 0) return;
+            calculator.first_number = textField.getText().toString().trim();
             if (calculator.first_number.equals("")) return;
 
             switch (sign) {
@@ -169,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                     calculator.result = 0;
             }
 
-            textField.setText(String.valueOf(calculator.result));
+            textField.setText((int) calculator.result);
 
         }
     };
@@ -177,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        calculator.result = Double.parseDouble(textField.getText().toString());
         outState.putParcelable("calculator", calculator);
     }
 

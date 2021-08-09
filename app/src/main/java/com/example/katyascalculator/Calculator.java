@@ -29,7 +29,7 @@ public class Calculator implements Parcelable {
     public Calculator() {
         first_number = "";
         second_number = "";
-        result = 0.0;
+        result = 0.00;
     }
 
     public void Sum() {
